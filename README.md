@@ -6,7 +6,7 @@ A fun and simple memory puzzle game built with pure HTML, CSS, and JavaScript. N
 
 ## 🎮 Live Demo
 
-👉 [Play it here](https://YOUR_USERNAME.github.io/memory-card-match/)
+👉 [Play it here](https://hein0417.github.io/memory-card-match/)
 
 ---
 
@@ -41,7 +41,7 @@ This project was built as a beginner-friendly web game to practice:
 
 ### Option 2 — Clone with Git
 ```bash
-git clone https://github.com/YOUR_USERNAME/memory-card-match.git
+git clone https://github.com/hein0417/memory-card-match.git
 cd memory-card-match
 ```
 Then open `index.html` in your browser.
@@ -91,7 +91,7 @@ memory-card-match/
 ## 👤 Author
 
 **Kyaw Swar Hein**
-- GitHub: [@YOUR_USERNAME](https://github.com/YOUR_USERNAME)
+- GitHub: [@hein0417](https://github.com/hein0417)
 
 ---
 
