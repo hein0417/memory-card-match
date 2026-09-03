@@ -52,7 +52,9 @@ Then open `index.html` in your browser.
 
 ```
 memory-card-match/
-├── index.html      # All game code — HTML, CSS, and JavaScript in one file
+├── index.html      # Page structure and layout
+├── style.css       # All styling and animations
+├── script.js       # Game logic — flip, match, timer, win
 └── README.md       # Project documentation
 ```
 
@@ -73,7 +75,8 @@ memory-card-match/
 
 - HTML5
 - CSS3 (Grid, Flexbox, 3D flip animation)
-- Vanilla JavaScript (no libraries)
+-- Vanilla JavaScript (no libraries)
+- Separate files: index.html, style.css, script.js
 - Google Fonts — Syne + DM Sans
 
 ---
