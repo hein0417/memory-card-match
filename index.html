@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Memory Card Match</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<header>
+  <h1>Memory Match</h1>
+  <p>Flip cards · find pairs · beat your record</p>
+</header>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-label">Moves</div>
+    <div class="stat-value" id="moves">0</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Pairs</div>
+    <div class="stat-value" id="pairs">0 / 0</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Time</div>
+    <div class="stat-value" id="timer">0s</div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="difficulty-bar">
+    <button class="diff-btn active" data-cols="4" onclick="setDifficulty(this)">Easy</button>
+    <button class="diff-btn" data-cols="5" onclick="setDifficulty(this)">Medium</button>
+    <button class="diff-btn" data-cols="6" onclick="setDifficulty(this)">Hard</button>
+  </div>
+  <button class="btn-primary" onclick="startGame()">New Game</button>
+</div>
+
+<div class="grid" id="grid" data-cols="4"></div>
+
+<div class="overlay" id="overlay">
+  <div class="win-box">
+    <span class="win-emoji">🎉</span>
+    <h2>You Won!</h2>
+    <p id="win-msg"></p>
+    <button class="btn-primary" onclick="startGame(); document.getElementById('overlay').classList.remove('show')">Play Again</button>
+  </div>
+</div>
+
+<footer>
+  Memory Card Match &mdash; open source puzzle game ·
+  <a href="https://github.com/hein0417/memory-card-match" target="_blank">View on GitHub</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
