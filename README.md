@@ -90,6 +90,8 @@ memory-card-match/
 - [ ] Leaderboard
 
 ---
+## 🧠 Tips & Tricks
+See [TIPS.md](TIPS.md) for tips on how to play and win!
 
 ## 👤 Author
 
