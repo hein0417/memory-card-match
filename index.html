@@ -36,16 +36,48 @@
     <button class="diff-btn" data-cols="6" onclick="setDifficulty(this)">Hard</button>
   </div>
   <button class="btn-primary" onclick="startGame()">New Game</button>
+  <a href="leaderboard.html" class="btn-secondary" style="text-decoration:none; display:inline-flex; align-items:center;">🏆 Leaderboard</a>
 </div>
 
 <div class="grid" id="grid" data-cols="4"></div>
 
+<!-- WIN OVERLAY -->
 <div class="overlay" id="overlay">
   <div class="win-box">
     <span class="win-emoji">🎉</span>
     <h2>You Won!</h2>
-    <p id="win-msg"></p>
-    <button class="btn-primary" onclick="startGame(); document.getElementById('overlay').classList.remove('show')">Play Again</button>
+
+    <div class="win-stats">
+      <div class="win-stat">
+        <span class="win-stat-label">Difficulty</span>
+        <span class="win-stat-value" id="win-difficulty">Easy</span>
+      </div>
+      <div class="win-stat">
+        <span class="win-stat-label">Moves</span>
+        <span class="win-stat-value" id="win-moves">0</span>
+      </div>
+      <div class="win-stat">
+        <span class="win-stat-label">Time</span>
+        <span class="win-stat-value" id="win-time">0s</span>
+      </div>
+      <div class="win-stat">
+        <span class="win-stat-label">Score</span>
+        <span class="win-stat-value highlight" id="win-score">0</span>
+      </div>
+    </div>
+
+    <p class="score-note">Score = moves × 10 + seconds &nbsp;·&nbsp; lower is better</p>
+
+    <div class="nickname-row">
+      <input type="text" id="nickname-input" placeholder="Enter your nickname…" maxlength="20"/>
+      <button class="btn-primary" id="submit-btn" onclick="submitScore()">Submit</button>
+    </div>
+    <div class="submit-status" id="submit-status"></div>
+
+    <div class="win-actions">
+      <button class="btn-primary" onclick="startGame(); document.getElementById('overlay').classList.remove('show')">Play Again</button>
+      <a href="leaderboard.html" class="btn-secondary" style="text-decoration:none; display:inline-flex; align-items:center;">🏆 View Leaderboard</a>
+    </div>
   </div>
 </div>
 
