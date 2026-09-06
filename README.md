@@ -6,7 +6,7 @@ A fun and simple memory puzzle game built with pure HTML, CSS, and JavaScript. N
 
 ##  Live Demo
 
-👉 [Play it here](https://hein0417.github.io/memory-card-match/)
+ [Play it here](https://hein0417.github.io/memory-card-match/)
 
 ---
 
