@@ -1,16 +1,16 @@
 # memory-card-match
 Memory card match 
-# 🃏 Memory Card Match
+#  Memory Card Match
 
 A fun and simple memory puzzle game built with pure HTML, CSS, and JavaScript. No frameworks, no installation — just open and play!
 
-## 🎮 Live Demo
+##  Live Demo
 
 👉 [Play it here](https://hein0417.github.io/memory-card-match/)
 
 ---
 
-## 📖 About The Project
+##  About The Project
 
 Memory Card Match is a classic flip-and-match card game. The goal is to find all matching pairs of emoji cards in as few moves and as little time as possible.
 
@@ -21,18 +21,18 @@ This project was built as a beginner-friendly web game to practice:
 
 ---
 
-## ✨ Features
+##  Features
 
-- 🟢 **3 Difficulty Levels** — Easy (4×4), Medium (5×4), Hard (6×5)
-- 🔢 **Move Counter** — tracks how many flips you make
-- ⏱️ **Live Timer** — starts on your first flip
-- 🎴 **36 Emoji Pairs** — randomly shuffled every new game
-- 🏆 **Win Screen** — shows your final score with moves and time
-- 📱 **Responsive** — works on desktop and mobile
+-  **3 Difficulty Levels** — Easy (4×4), Medium (5×4), Hard (6×5)
+-  **Move Counter** — tracks how many flips you make
+-  **Live Timer** — starts on your first flip
+-  **36 Emoji Pairs** — randomly shuffled every new game
+-  **Win Screen** — shows your final score with moves and time
+-  **Responsive** — works on desktop and mobile
 
 ---
 
-## 🚀 How To Run
+##  How To Run
 
 ### Option 1 — Open directly
 1. Download or clone this repository
@@ -48,7 +48,7 @@ Then open `index.html` in your browser.
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 memory-card-match/
@@ -60,18 +60,18 @@ memory-card-match/
 
 ---
 
-## 🎯 How To Play
+##  How To Play
 
 1. Click **New Game** to start
 2. Click any card to flip it and reveal the emoji
-3. Click a second card — if they match, they stay face up ✅
-4. If they don't match, both cards flip back over ❌
+3. Click a second card — if they match, they stay face up 
+4. If they don't match, both cards flip back over 
 5. Keep going until all pairs are found!
-6. Try to finish with the fewest moves and fastest time 🏆
+6. Try to finish with the fewest moves and fastest time 
 
 ---
 
-## 🛠️ Built With
+##  Built With
 
 - HTML5
 - CSS3 (Grid, Flexbox, 3D flip animation)
@@ -81,7 +81,7 @@ memory-card-match/
 
 ---
 
-## 💡 Future Ideas
+##  Future Ideas
 
 - [ ] Save best score with `localStorage`
 - [ ] Add sound effects on flip and match
@@ -90,10 +90,10 @@ memory-card-match/
 - [ ] Leaderboard
 
 ---
-## 🧠 Tips & Tricks
+##  Tips & Tricks
 See [TIPS.md](TIPS.md) for tips on how to play and win!
 
-## 👤 Author
+##  Author
 
 **Kyaw Swar Hein**
 - GitHub: [@hein0417](https://github.com/hein0417)
