@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leaderboard — Memory Card Match</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d14;
+      --surface: #16161f;
+      --border: #2a2a3a;
+      --accent: #f0c040;
+      --text: #f0eee8;
+      --muted: #666688;
+      --gold: #f0c040;
+      --silver: #b0b8c8;
+      --bronze: #cd7f3a;
+      --radius: 14px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 48px;
+      background-image:
+        radial-gradient(ellipse 60% 40% at 50% -10%, rgba(240,192,64,0.10) 0%, transparent 70%);
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 0.9rem;
+    }
+
+    .nav {
+      margin-bottom: 32px;
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 18px;
+      transition: all 0.18s;
+    }
+
+    .nav a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* FILTER TABS */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tab {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 18px;
+      background: var(--surface);
+      color: var(--muted);
+      transition: all 0.18s;
+    }
+
+    .tab.active {
+      background: #2a2a3a;
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* LEADERBOARD TABLE */
+    .board {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    .board-header {
+      display: grid;
+      grid-template-columns: 48px 1fr 90px 90px 90px;
+      gap: 8px;
+      padding: 0 16px 10px;
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .board-header span:not(:first-child) { text-align: center; }
+
+    .row {
+      display: grid;
+      grid-template-columns: 48px 1fr 90px 90px 90px;
+      gap: 8px;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      transition: border-color 0.18s;
+    }
+
+    .row:hover { border-color: #3a3a5a; }
+
+    .row.rank-1 { border-color: var(--gold); background: rgba(240,192,64,0.05); }
+    .row.rank-2 { border-color: var(--silver); background: rgba(176,184,200,0.04); }
+    .row.rank-3 { border-color: var(--bronze); background: rgba(205,127,58,0.05); }
+
+    .rank {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .rank-1 .rank { color: var(--gold); }
+    .rank-2 .rank { color: var(--silver); }
+    .rank-3 .rank { color: var(--bronze); }
+    .rank-other { color: var(--muted); font-size: 0.9rem; }
+
+    .nickname {
+      font-weight: 500;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cell {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .cell .label {
+      display: block;
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 2px;
+    }
+
+    .score-badge {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .difficulty-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .diff-easy   { border-color: #3a7a3a; color: #6aba6a; }
+    .diff-medium { border-color: #7a6a2a; color: #c8a840; }
+    .diff-hard   { border-color: #7a2a2a; color: #c86060; }
+
+    /* EMPTY / LOADING */
+    .empty {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--muted);
+    }
+
+    .empty span { font-size: 2.5rem; display: block; margin-bottom: 12px; }
+
+    .loading {
+      text-align: center;
+      padding: 48px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* SETUP BANNER */
+    .setup-banner {
+      width: 100%;
+      max-width: 680px;
+      background: rgba(240,192,64,0.08);
+      border: 1px solid rgba(240,192,64,0.3);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .setup-banner strong { color: var(--accent); }
+    .setup-banner code {
+      background: #1e1e2e;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      color: var(--accent);
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 44px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 520px) {
+      .board-header,
+      .row { grid-template-columns: 40px 1fr 70px 70px; }
+      .board-header span:last-child,
+      .row .cell:last-child { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏆 Leaderboard</h1>
+  <p>Global rankings — Memory Card Match</p>
+</header>
+
+<nav class="nav">
+  <a href="index.html">← Back to Game</a>
+</nav>
+
+<!-- SETUP BANNER — remove this after you connect Supabase -->
+<div class="setup-banner" id="setupBanner">
+  ⚠️ <strong>Setup needed:</strong> Open <code>leaderboard.html</code> in a text editor and replace
+  <code>YOUR_SUPABASE_URL</code> and <code>YOUR_SUPABASE_ANON_KEY</code> with your real Supabase
+  credentials. See the <strong>README</strong> for step-by-step instructions.
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="setFilter('all', this)">All</button>
+  <button class="tab" onclick="setFilter('easy', this)">Easy</button>
+  <button class="tab" onclick="setFilter('medium', this)">Medium</button>
+  <button class="tab" onclick="setFilter('hard', this)">Hard</button>
+</div>
+
+<div class="board">
+  <div class="board-header">
+    <span>#</span>
+    <span style="text-align:left">Player</span>
+    <span>Score</span>
+    <span>Time</span>
+    <span>Moves</span>
+  </div>
+  <div id="rows">
+    <div class="loading">Loading scores…</div>
+  </div>
+</div>
+
+<footer>
+  Memory Card Match ·
+  <a href="index.html">Play the game</a> ·
+  <a href="https://github.com/hein0417/memory-card-match" target="_blank">GitHub</a>
+</footer>
+
+<script>
+  // =============================================
+  // REPLACE THESE WITH YOUR SUPABASE CREDENTIALS
+  const SUPABASE_URL = 'https://bnqlajncwqdvwpqsqrls.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJucWxham5jd3FkdndwcXNxcmxzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg3MTY1OTUsImV4cCI6MjEwNDI5MjU5NX0.89RIAujlB8Pkveav-h3PijU2ldVAFbF6rHzFHI1ldWc';
+  // =============================================
+
+  let currentFilter = 'all';
+
+  function setFilter(diff, btn) {
+    currentFilter = diff;
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    loadScores();
+  }
+
+  // Score formula: lower is better
+  // score = moves * 10 + seconds
+  function calcScore(moves, seconds) {
+    return moves * 10 + seconds;
+  }
+
+  async function loadScores() {
+    const container = document.getElementById('rows');
+    container.innerHTML = '<div class="loading">Loading scores…</div>';
+
+    if (SUPABASE_URL === 'YOUR_SUPABASE_URL') {
+      showDemo();
+      return;
+    }
+
+    try {
+      let url = `${SUPABASE_URL}/rest/v1/scores?select=*&order=score.asc&limit=20`;
+      if (currentFilter !== 'all') {
+        url += `&difficulty=eq.${currentFilter}`;
+      }
+
+      const res = await fetch(url, {
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        }
+      });
+
+      const data = await res.json();
+      document.getElementById('setupBanner').style.display = 'none';
+      renderRows(data);
+    } catch (err) {
+      container.innerHTML = `<div class="empty"><span>⚠️</span>Could not load scores. Check your Supabase credentials.</div>`;
+    }
+  }
+
+  function renderRows(data) {
+    const container = document.getElementById('rows');
+
+    if (!data || data.length === 0) {
+      container.innerHTML = `<div class="empty"><span>🎴</span>No scores yet — be the first to play!</div>`;
+      return;
+    }
+
+    container.innerHTML = data.map((entry, i) => {
+      const rank = i + 1;
+      const rankClass = rank <= 3 ? `rank-${rank}` : '';
+      const rankLabel = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `<span class="rank-other">${rank}</span>`;
+      const diffClass = `diff-${entry.difficulty}`;
+      const diffLabel = entry.difficulty.charAt(0).toUpperCase() + entry.difficulty.slice(1);
+
+      return `
+        <div class="row ${rankClass}">
+          <div class="rank">${rankLabel}</div>
+          <div>
+            <div class="nickname">${escapeHTML(entry.nickname)}</div>
+            <span class="difficulty-tag ${diffClass}">${diffLabel}</span>
+          </div>
+          <div class="cell">
+            <span class="label">Score</span>
+            <span class="score-badge">${entry.score}</span>
+          </div>
+          <div class="cell">
+            <span class="label">Time</span>
+            ${entry.seconds}s
+          </div>
+          <div class="cell">
+            <span class="label">Moves</span>
+            ${entry.moves}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function showDemo() {
+    // Show placeholder data so the page looks good before Supabase is connected
+    const demo = [
+      { nickname: 'MemoryKing', difficulty: 'hard',   score: 142, seconds: 42,  moves: 10 },
+      { nickname: 'FlipMaster', difficulty: 'hard',   score: 180, seconds: 80,  moves: 10 },
+      { nickname: 'Kyaw',       difficulty: 'medium', score: 210, seconds: 60,  moves: 15 },
+      { nickname: 'StarPlayer', difficulty: 'easy',   score: 95,  seconds: 35,  moves: 6  },
+      { nickname: 'QuickFlip',  difficulty: 'medium', score: 260, seconds: 60,  moves: 20 },
+    ]
+    .filter(e => currentFilter === 'all' || e.difficulty === currentFilter)
+    .sort((a, b) => a.score - b.score);
+
+    renderRows(demo);
+  }
+
+  function escapeHTML(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // Score is calculated as: moves × 10 + seconds (lower = better)
+  window.submitScore = async function(nickname, moves, seconds, difficulty) {
+    if (SUPABASE_URL === 'YOUR_SUPABASE_URL') return;
+    const score = calcScore(moves, seconds);
+    await fetch(`${SUPABASE_URL}/rest/v1/scores`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ nickname, moves, seconds, score, difficulty })
+    });
+  };
+
+  loadScores();
+</script>
+</body>
+</html>
