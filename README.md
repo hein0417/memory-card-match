@@ -148,9 +148,9 @@ You can filter rankings by difficulty:
  
 | Badge | Rank |
 |-------|------|
-|  Gold | 1st place |
-|  Silver | 2nd place |
-|  Bronze | 3rd place |
+|  **Gold** | 1st place |
+|  **Silver** | 2nd place |
+|  __Bronze__ | 3rd place |
 | # | 4th place and below |
  
 ---
