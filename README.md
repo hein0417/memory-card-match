@@ -87,7 +87,82 @@ memory-card-match/
 - [ ] Add sound effects on flip and match
 - [ ] Custom image cards instead of emojis
 - [ ] Multiplayer mode (Player 1 vs Player 2)
-- [ ] Leaderboard
+
+---
+## Leaderboard
+
+The global leaderboard lets players from anywhere in the world compete and compare their scores in real time!
+
+## How it works
+
+When you finish a game:
+
+1. A win screen appears showing your **moves**, **time**, and **score**
+2. You type your **nickname**
+3. You click **Submit**
+4. Your score is saved to a live database
+5. Anyone can see the leaderboard at any time!
+   
+# 📊 Scoring System
+ 
+Your score is calculated like this:
+ 
+```
+Score = (Moves × 10) + Seconds
+```
+ 
+**Lower score = better rank** 
+ 
+### Example:
+| Moves | Time | Score |
+|-------|------|-------|
+| 10 | 30s | 130 |
+| 12 | 20s | 140 |
+| 8 | 60s | 140 |
+| 6 | 25s | 85 ← best! |
+ 
+---
+ 
+##  Tips to Get a High Rank
+ 
+- **Fewer moves = lower score** — think before you flip!
+- **Faster time = lower score** — but don't rush and make mistakes
+- **Easy mode is fastest** — great for chasing top scores
+- **Hard mode is impressive** — fewer players finish it well
+---
+ 
+##  Filtering the Leaderboard
+ 
+You can filter rankings by difficulty:
+ 
+| Filter | Shows |
+|--------|-------|
+| **All** | Every player from all difficulties |
+| **Easy** | Only Easy mode (4×4 grid) scores |
+| **Medium** | Only Medium mode (5×4 grid) scores |
+| **Hard** | Only Hard mode (6×5 grid) scores |
+ 
+---
+ 
+##  Rank Badges
+ 
+| Badge | Rank |
+|-------|------|
+|  Gold | 1st place |
+|  Silver | 2nd place |
+|  Bronze | 3rd place |
+| # | 4th place and below |
+ 
+---
+ 
+##  Technical Details
+ 
+The leaderboard is powered by **Supabase** — a free open source database.
+ 
+- Scores are saved instantly when you click Submit
+- The leaderboard updates in real time
+- No account or login needed — just a nickname
+- Built with plain JavaScript and the Supabase REST API
 
 ---
 ##  Tips & Tricks
